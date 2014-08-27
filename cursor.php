@@ -13,7 +13,9 @@
     $full_followers = array();
     do {
         //SET UP THE URL
-      $follows = $oTwitter->get("followers/ids.json?screen_name=USERNAMEHERE&cursor=".$cursor);
+      $method="friends/ids";
+      $parameters=array('screen_name' => 'USERNAMEHERE', 'cursor'=> $cursor);
+      $follows = $oTwitter->get($method, $parameters);
       $foll_array = (array)$follows;
 
       foreach ($foll_array['ids'] as $key => $val) {
