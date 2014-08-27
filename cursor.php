@@ -8,13 +8,13 @@
      'YOUR_TWITTER_APP_OAUTH_SECRET');
      
 //FULL FOLLOWERS ARRAY WITH CURSOR ( FOLLOWERS > 5000)
-    $e = 1;
+    $e = 0;
     $cursor = -1;
     $full_followers = array();
     do {
         //SET UP THE URL
-      $method="friends/ids";
-      $parameters=array('screen_name' => 'USERNAMEHERE', 'cursor'=> $cursor);
+      $method="followers/ids";
+      $parameters=array('screen_name' => 'USERNAMEHERE', 'next_cursor'=> $cursor);
       $follows = $oTwitter->get($method, $parameters);
       $foll_array = (array)$follows;
 
@@ -34,7 +34,9 @@ echo "Number of followers:" .$e. "<br /><br />";
     $full_friends = array();
     do {
 
-      $follow = $oTwitter->get("friends/ids.json?screen_name=USERNAMEHERE&cursor=".$cursor);
+      $method="friends/ids";
+      $parameters=array('screen_name' => 'USERNAMEHERE', 'next_cursor'=> $cursor);
+      $follow = $oTwitter->get($method, $parameters);
       $foll_array = (array)$follow;
 
       foreach ($foll_array['ids'] as $key => $val) {
